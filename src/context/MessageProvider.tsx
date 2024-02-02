@@ -26,7 +26,11 @@ export const MessageProvider: React.FC<MessageProviderProps> = ({ children }) =>
   const [socket, setSocket] = useState<Socket | null>(null);
 
   useEffect(() => {
-    const newSocket = io(`http://${BASE_URL}:3000`);
+    const newSocket = io(`${BASE_URL}`, {
+      extraHeaders: {
+        "Ngrok-skip-browser-warning": "true",
+      },
+    });
 
     newSocket.on("initialMessages", (data: ResponseMessage[]) => {
       setMessages([...data]);
