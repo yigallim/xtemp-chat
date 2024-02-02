@@ -1,0 +1,48 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.root-container {
+  position: relative;
+  height: 100%;
+  padding: 0 !important;
+  box-shadow: 0 0 12px 2px rgba(5, 5, 5, 0.06);
+}
+
+.inner-container {
+  height: 100%;
+  overflow-x: auto;
+}
+
+.profile.inner-container {
+  height: calc(100% - 64px);
+}
+
+.chat.inner-container {
+  height: calc(100% - 64px - 56px);
+}
+
+@media (max-width: 600px) {
+  .profile.inner-container {
+    height: calc(100% - 56px);
+  }
+
+  .chat.inner-container {
+    height: calc(100% - 56px - 56px);
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.message-item {
+  background-color: #f0f0f0 !important;
+}
+
+.message-item.own-message {
+  background-color: #edf0f9 !important;
+}
