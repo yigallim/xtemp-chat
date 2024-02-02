@@ -20,7 +20,6 @@ import {
   DialogContentText,
   DialogActions,
   Input,
-  Divider,
 } from "@mui/material";
 import { Link, Link as RouterLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
