@@ -23,4 +23,5 @@ const apiInstance = axios.create({
   },
 });
 
+export const pfpUrlRoot = BASE_URL + "/img";
 export { authInstance, apiInstance };

@@ -31,6 +31,7 @@ import {
   uploadProfilePicture,
 } from "../api/profileRequest";
 import Loading from "../components/Loading";
+import { pfpUrlRoot } from "../api/instance";
 export enum Gender {
   MALE = "MALE",
   FEMALE = "FEMALE",
@@ -39,6 +40,7 @@ export enum Gender {
 
 export default function Profile() {
   const { id, logout } = useAuth();
+
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
   const [changed, setChanged] = useState(false);
@@ -75,6 +77,8 @@ export default function Profile() {
           bio: profile.bio,
           gender: profile.gender,
         });
+        console.log(profile.pfpUrl);
+        setPfpUrl(profile.pfpUrl);
       } catch (error) {
         console.error("Error fetching profile:", error);
         setFailed(true);
@@ -85,6 +89,7 @@ export default function Profile() {
     fetchProfile();
   }, [id]);
 
+  const [pfpUrl, setPfpUrl] = useState<string | null>(null);
   const [editableProfile, setEditableProfile] = useState({
     username: "",
     firstName: "",
@@ -203,7 +208,7 @@ export default function Profile() {
               >
                 <Avatar
                   alt={firstName + " " + lastName}
-                  src="/pfp.gif"
+                  src={pfpUrl ? pfpUrlRoot + "/" + pfpUrl : "/pfp.gif"}
                   sx={{ height: 150, width: 150 }}
                 />
               </Badge>
@@ -306,7 +311,7 @@ export default function Profile() {
             formData.append("file", selectedFile!);
             try {
               const pfpUrl = await uploadProfilePicture(id!, formData);
-              console.log("pfpUrl --", pfpUrl);
+              setPfpUrl(pfpUrl);
             } catch (error) {
               console.error("Error uploading profile picture:", error);
             } finally {
